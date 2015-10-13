@@ -6,7 +6,7 @@
 #include "index/ranker/okapi_bm25.h"
 #include "logging/logger.h"
 #include "util/time.h"
-#include "util/filesystem.h"
+#include "io/filesystem.h"
 
 MyStubServer::MyStubServer(AbstractServerConnector& connector,
                            std::shared_ptr<meta::index::inverted_index> idx)
@@ -47,10 +47,20 @@ Json::Value MyStubServer::search(const std::string& query_text,
 
             for (auto& result : ranker->score(*idx_, query, 50))
             {
+                util::optional<std::string> docID   = idx_->metadata(result.d_id).get<std::string>("id");
+                util::optional<std::string> title   = idx_->metadata(result.d_id).get<std::string>("title");
+                util::optional<std::string> authors = idx_->metadata(result.d_id).get<std::string>("authors");
+
                 Json::Value obj{Json::objectValue};
-                obj["score"] = result.score;
-                obj["name"] = idx_->doc_name(result.d_id);
-                obj["path"] = idx_->doc_path(result.d_id);
+                obj["score"]   = result.score;
+                obj["name"]    = idx_->doc_name(result.d_id);
+                obj["path"]    = idx_->doc_path(result.d_id);
+
+                // meta data
+                obj["docID"]   = *docID;
+                obj["title"]   = *title;
+                obj["authors"] = *authors;
+
                 json_ret["results"].append(obj);
             }
         });

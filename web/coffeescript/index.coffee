@@ -55,7 +55,7 @@ print_results = (result) ->
     break if displayed == 20
     continue if (doc.path.includes ":") or (doc.path.length > 60)
     displayed += 1
-    path = doc.path.replace(/_/g, " ")
-    html = "<li><h4><a href='https://en.wikipedia.org/wiki/#{doc.path}'>#{path}</a>"
-    html += "<small class='pull-right'>#{doc.score.toFixed(4)}</small></h4></li>"
+    path  = doc.path.replace(/_/g, " ")
+    html = "<li><h4><a href='http://arxiv.org/abs/#{doc.docID}'>#{doc.title}</a>"
+    html += " <small>#{doc.authors}</small>"
     $("#search_results_list").append(html)
