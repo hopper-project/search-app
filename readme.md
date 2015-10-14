@@ -15,7 +15,7 @@ the backend of a web-based search application.
 - [NodeJS](https://nodejs.org/) is used for the proxy server.
 
 ### MeTA API Server
-
+First, run the following in the top-level search-app directory:
 ```bash
 git submodule update --init --recursive
 ```
