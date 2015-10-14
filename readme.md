@@ -17,7 +17,6 @@ the backend of a web-based search application.
 ### MeTA API Server
 
 ```bash
-cd cpp/
 git submodule update --init --recursive
 ```
 
@@ -27,6 +26,7 @@ Next, we can compile the API server.
 On Mac OS X, you will need to explicitly provide the ICU root directory:
 
 ```
+cd cpp/
 mkdir build/
 cd build/
 CXX=clang++ cmake ../ -DCMAKE_BUILD_TYPE=Release -DICU_ROOT=/usr/local/opt/icu4c
@@ -36,9 +36,10 @@ make -j4
 #### Linux
 
 ```
+cd cpp/
 mkdir build/
 cd build/
-CXX=clang++ cmake ../ -DCMAKE_BUILD_TYPE=Release
+CXX=g++-4.8 cmake ../ -DCMAKE_BUILD_TYPE=Release
 make -j4
 ```
 
